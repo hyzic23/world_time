@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:intl/intl.dart';
 
 class WorldTime {
 
@@ -16,7 +17,7 @@ class WorldTime {
 
     try{
       //make the request
-      Response response = await get(Uri.parse('https://worldtimeapi.org/api/timezones_/$url'));
+      Response response = await get(Uri.parse('https://worldtimeapi.org/api/timezone/$url'));
       Map data = jsonDecode(response.body);
 
       //get properties from data
@@ -28,7 +29,7 @@ class WorldTime {
       now = now.add(Duration(hours: int.parse(offset)));
 
       //set the time property
-      time = now.toString();
+      time = DateFormat.jm().format(now);
     }
     catch(e){
       print('Caught error: $e');
